@@ -1,0 +1,100 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb}
+\usepackage{latexsym,amsthm,epsfig}
+\usepackage{verbatim}
+\usepackage{enumerate}
+\usepackage{hyperref}
+%\usepackage[english, activeacute]{babel}
+
+% EM - MAP     11
+% EM - NIPS    22
+% PCA          14
+% ICA          12
+% RL - proof   16
+% RL - imp     25
+
+
+\input{macros}
+
+\newcommand{\ypr}{y^{(pr)}}
+\newcommand{\zpr}{z^{(pr)}}
+\newcommand{\xpr}{x^{(pr)}}
+\newcommand{\epspr}{\epsilon^{(pr)}}
+\newcommand{\yprsqr}{(\ypr)^2}
+\newcommand{\zprsqr}{(\zpr)^2}
+\newcommand{\xprsqr}{(\xpr)^2}
+\newcommand{\epsprsqr}{(\epspr)^2}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+
+\pagestyle{empty} \addtolength{\textwidth}{1.0in}
+\addtolength{\textheight}{0.5in}
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\newcommand{\ruleskip}{\bigskip\hrule\bigskip}
+\newcommand{\nodify}[1]{{\sc #1}}
+
+\setlength{\parindent}{0pt} \setlength{\parskip}{0.5ex}
+\setlength{\unitlength}{1cm}
+
+\renewcommand{\Re}{{\mathbb R}}
+
+\begin{document}
+
+\pagestyle{myheadings} \markboth{}{CS229 Problem Set 0}
+
+
+{\huge
+\noindent CS 229, Spring 2023\\
+Problem Set 0: Linear Algebra, Multivariable Calculus, and Probability\\
+%{\Large Handout\solutions{\#12}{\#15} }
+}
+
+\solutionstrue
+
+\ruleskip
+
+{\bf Ungraded: optionally due Tuesday, April 12 at 11:59 pm on Gradescope.}
+
+{\bf Notes:} \\ (1) These questions require thought, but do not require long
+answers. Please be as concise as possible. \\ (2) If you have a question about
+this homework, we encourage you to post your question on our Ed at \url{https://edstem.org/us/courses/37893/discussion/}.  \\ (3) If you missed the
+first lecture or are unfamiliar with the collaboration or honor code policy,
+please read the policy before you start. \\ (4) This specific homework is {\bf{\emph{not graded}}}, but we encourage you
+to solve each of the problems to brush up on your linear algebra and probability.
+Some of them may even be useful for subsequent problem sets. It also
+serves as your introduction to using Gradescope for submissions. We strongly suggest you use LaTeX to write your problem set solutions (not only is it helpful for this class, but it is a good skill to learn). However, if you are scanning your document by cellphone, please use a scanning app such as
+CamScanner. There will not be any late days allowed for this particular assignment.
+\smallskip
+
+
+
+
+{\bf Honor code:} 
+We strongly encourage students to form study groups. Students may discuss and work on homework problems in groups. However, each student must write down the solution independently, and without referring to written notes from the joint session. Each student must understand the solution well enough in order to reconstruct it by him/herself. It is an honor code violation to copy, refer to, or look at written or code solutions from a previous year, including but not limited to: official solutions from a previous year, solutions posted online, and solutions you or someone else may have written up in a previous year. Furthermore, it is an honor code violation to post your assignment solutions online, such as on a public git repo. We run plagiarism-detection software on your code against past solutions as well as student submissions from previous years. Please take the time to familiarize yourself with the Stanford Honor Code 
+\footnote{\url{https://communitystandards.stanford.edu/policies-and-guidance/honor-code}} and the Stanford Honor Code\footnote{\url{web.stanford.edu/class/archive/cs/cs106b/cs106b.1164/handouts/honor-code.pdf}} as it pertains to CS courses.
+
+%We strongly encourage students to form study
+%groups. Students may discuss and work on homework problems in
+%groups. However, each student must write down the solutions independently,
+%and without referring to written notes from the joint session.
+%%In addition, each student should write on
+%the problem set the set of people with whom s/he collaborated.
+%Further, because we occasionally reuse problem set questions from previous
+%years, we expect students not to copy, refer to, or look at the solutions
+%in preparing their answers. It is an honor code violation to intentionally
+%refer to a previous year's solutions.
+
+\begin{enumerate}[1.]
+\newpage
+\input{gradients-short}
+\newpage
+% \input{gradients}
+\input{matrices-short}
+\newpage
+% \input{matrices}
+% \input{matrix-derivatives}
+\input{probability}
+\end{enumerate}
+
+\end{document}

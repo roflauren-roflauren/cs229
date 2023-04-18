@@ -1,0 +1,307 @@
+\usepackage{verbatim}
+\usepackage{color}
+\usepackage{bbm}
+\usepackage{listings}
+\usepackage{setspace}
+\usepackage{float}
+\definecolor{Code}{rgb}{0,0,0}
+\definecolor{Decorators}{rgb}{0.5,0.5,0.5}
+\definecolor{Numbers}{rgb}{0.5,0,0}
+\definecolor{MatchingBrackets}{rgb}{0.25,0.5,0.5}
+\definecolor{Keywords}{rgb}{0,0,1}
+\definecolor{self}{rgb}{0,0,0}
+\definecolor{Strings}{rgb}{0,0.63,0}
+\definecolor{Comments}{rgb}{0,0.63,1}
+\definecolor{Backquotes}{rgb}{0,0,0}
+\definecolor{Classname}{rgb}{0,0,0}
+\definecolor{FunctionName}{rgb}{0,0,0}
+\definecolor{Operators}{rgb}{0,0,0}
+\definecolor{Background}{rgb}{0.98,0.98,0.98}
+\newcommand{\newsec}{\section}
+\newcommand{\denselist}{\itemsep 0pt\partopsep 0pt}
+\newcommand{\bitem}{\begin{itemize}\denselist}
+\newcommand{\eitem}{\end{itemize}}
+\newcommand{\benum}{\begin{enumerate}\denselist}
+\newcommand{\eenum}{\end{enumerate}}
+
+\newif\ifsolutions
+\newcommand{\solutions}[2]{{
+\ifsolutions
+#2
+\else
+#1
+\fi
+}}
+
+\newenvironment{labelledanswer}{{\bf Answer:} \sf \begingroup\color{red} }{\endgroup}%
+\newcommand{\answer}[2]
+{{
+\ifsolutions
+\begin{labelledanswer}
+#2
+\end{labelledanswer}
+\else
+#1
+\fi
+}}
+
+
+\newcommand{\points}[1]{{\textbf{[#1 points]}}}
+\newcommand{\subquestionpoints}[1]{{[#1 points]}}
+\newcommand{\onePoint}{{\textbf{[1 point]}}}
+
+\newcommand{\fig}[1]{\private{\begin{center}
+{\Large\bf ({#1})}
+\end{center}}}
+
+\newcommand{\cpsf}[1]{{\centerline{\psfig{#1}}}}
+\newcommand{\mytitle}[1]{\centerline{\LARGE\bf #1}}
+
+\newcommand{\myw}{{\bf w}}
+
+\newcommand{\mypar}[1]{\vspace{1ex}\noindent{\bf {#1}}}
+
+\def\thmcolon{\hspace{-.85em} {\bf :} }
+
+\newtheorem{THEOREM}{Theorem}[section]
+\newenvironment{theorem}{\begin{THEOREM} \thmcolon }%
+                        {\end{THEOREM}}
+\newtheorem{LEMMA}[THEOREM]{Lemma}
+\newenvironment{lemma}{\begin{LEMMA} \thmcolon }%
+                      {\end{LEMMA}}
+\newtheorem{COROLLARY}[THEOREM]{Corollary}
+\newenvironment{corollary}{\begin{COROLLARY} \thmcolon }%
+                          {\end{COROLLARY}}
+\newtheorem{PROPOSITION}[THEOREM]{Proposition}
+\newenvironment{proposition}{\begin{PROPOSITION} \thmcolon }%
+                            {\end{PROPOSITION}}
+\newtheorem{DEFINITION}[THEOREM]{Definition}
+\newenvironment{definition}{\begin{DEFINITION} \thmcolon \rm}%
+                            {\end{DEFINITION}}
+\newtheorem{CLAIM}[THEOREM]{Claim}
+\newenvironment{claim}{\begin{CLAIM} \thmcolon \rm}%
+                            {\end{CLAIM}}
+\newtheorem{EXAMPLE}[THEOREM]{Example}
+\newenvironment{example}{\begin{EXAMPLE} \thmcolon \rm}%
+                            {\end{EXAMPLE}}
+\newtheorem{REMARK}[THEOREM]{Remark}
+\newenvironment{remark}{\begin{REMARK} \thmcolon \rm}%
+                            {\end{REMARK}}
+%\newenvironment{proof}{\noindent {\bf Proof:} \hspace{.677em}}%
+%                      {}
+
+%theorem
+\newcommand{\thm}{\begin{theorem}}
+%lemma
+\newcommand{\lem}{\begin{lemma}}
+%proposition
+\newcommand{\pro}{\begin{proposition}}
+%definition
+\newcommand{\dfn}{\begin{definition}}
+%remark
+\newcommand{\rem}{\begin{remark}}
+%example
+\newcommand{\xam}{\begin{example}}
+%corollary
+\newcommand{\cor}{\begin{corollary}}
+%proof
+\newcommand{\prf}{\noindent{\bf Proof:} }
+%end theorem
+\newcommand{\ethm}{\end{theorem}}
+%end lemma
+\newcommand{\elem}{\end{lemma}}
+%end proposition
+\newcommand{\epro}{\end{proposition}}
+%end definition
+\newcommand{\edfn}{\bbox\end{definition}}
+%end remark
+\newcommand{\erem}{\bbox\end{remark}}
+%end example
+\newcommand{\exam}{\bbox\end{example}}
+%end corollary
+\newcommand{\ecor}{\end{corollary}}
+%end proof
+\newcommand{\eprf}{\bbox\vspace{0.1in}}
+%begin equation
+\newcommand{\beqn}{\begin{equation}}
+%end equation
+\newcommand{\eeqn}{\end{equation}}
+
+%\newcommand{\eqref}[1]{Eq.~\ref{#1}}
+
+\newcommand{\KB}{\mbox{\it KB\/}}
+\newcommand{\infers}{\vdash}
+\newcommand{\sat}{\models}
+\newcommand{\bbox}{\vrule height7pt width4pt depth1pt}
+
+\newcommand{\act}[1]{\stackrel{{#1}}{\rightarrow}}
+\newcommand{\at}[1]{^{(#1)}}
+
+\newcommand{\argmax}{{\rm argmax}}
+\newcommand{\V}{{\cal V}}
+\newcommand{\C}{{\cal C}}
+\newcommand{\calH}{{\cal H}}
+\newcommand{\calL}{{\cal L}}
+\newcommand{\calD}{{\cal D}}
+
+\newcommand{\rimp}{\Rightarrow}
+\newcommand{\dimp}{\Leftrightarrow}
+
+\newcommand{\nf}{\bar{f}}
+\newcommand{\ns}{\bar{s}}
+\newcommand{\na}{\bar{a}}
+\newcommand{\nh}{\bar{h}}
+\newcommand{\nr}{\bar{r}}
+
+
+\newcommand{\bX}{\mbox{\boldmath $X$}}
+\newcommand{\bY}{\mbox{\boldmath $Y$}}
+\newcommand{\bZ}{\mbox{\boldmath $Z$}}
+\newcommand{\bU}{\mbox{\boldmath $U$}}
+\newcommand{\bE}{\mbox{\boldmath $E$}}
+\newcommand{\bx}{\mbox{\boldmath $x$}}
+\newcommand{\be}{\mbox{\boldmath $e$}}
+\newcommand{\by}{\mbox{\boldmath $y$}}
+\newcommand{\bz}{\mbox{\boldmath $z$}}
+\newcommand{\bu}{\mbox{\boldmath $u$}}
+\newcommand{\bd}{\mbox{\boldmath $d$}}
+\newcommand{\smbx}{\mbox{\boldmath $\scriptstyle x$}}
+\newcommand{\smbd}{\mbox{\boldmath $\scriptstyle d$}}
+\newcommand{\smby}{\mbox{\boldmath $\scriptstyle y$}}
+\newcommand{\smbe}{\mbox{\boldmath $\scriptstyle e$}}
+
+\newcommand{\norm}[1]{\left\|{#1}\right\|}
+\newcommand{\ltwo}[1]{\norm{#1}_2}
+\newcommand{\lone}[1]{\norm{#1}_1}
+\newcommand{\linf}[1]{\norm{#1}_\infty}
+\newcommand{\lfro}[1]{\norm{#1}_{\rm Fr}}
+\newcommand{\matrixnorm}[1]{\left|\!\left|\!\left|{#1}\right|\!\right|\!\right|}
+
+\newcommand{\hinge}[1]{\left[{#1}\right]_+}
+\newcommand{\sign}{\mathop{\rm sign}}
+\newcommand{\diag}{\mathop{\rm diag}}
+\newcommand{\defeq}{:=}
+
+\newcommand{\Parents}{\mbox{\it Parents\/}}
+\newcommand{\B}{{\cal B}}
+
+\newcommand{\word}[1]{\mbox{\it #1\/}}
+\newcommand{\Action}{\word{Action}}
+\newcommand{\Proposition}{\word{Proposition}}
+\newcommand{\true}{\word{true}}
+\newcommand{\false}{\word{false}}
+\newcommand{\Pre}{\word{Pre}}
+\newcommand{\Add}{\word{Add}}
+\newcommand{\Del}{\word{Del}}
+\newcommand{\Result}{\word{Result}}
+\newcommand{\Regress}{\word{Regress}}
+\newcommand{\Maintain}{\word{Maintain}}
+
+\newcommand{\bor}{\bigvee}
+\newcommand{\invert}[1]{{#1}^{-1}}
+
+\newcommand{\commentout}[1]{}
+
+\newcommand{\bmu}{\mbox{\boldmath $\mu$}}
+\newcommand{\btheta}{\mbox{\boldmath $\theta$}}
+\newcommand{\IR}{\mbox{$I\!\!R$}}
+
+\newcommand{\tval}[1]{{#1}^{1}}
+\newcommand{\fval}[1]{{#1}^{0}}
+
+\newcommand{\tr}{{\rm tr}}
+\newcommand{\vecy}{{\vec{y}}}
+\renewcommand{\Re}{{\mathbb R}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\half}{\frac{1}{2}}
+\newcommand{\indic}[1]{\mathbf{1}\left\{{#1}\right\}}
+
+\def\twofigbox#1#2{%
+\noindent\begin{minipage}{\textwidth}%
+\epsfxsize=0.35\maxfigwidth
+\noindent \epsffile{#1}\hfill
+\epsfxsize=0.35\maxfigwidth
+\epsffile{#2}\\
+\makebox[0.35\textwidth]{(a)}\hfill\makebox[0.35\textwidth]{(b)}%
+\end{minipage}}
+
+\def\twofigboxcd#1#2{%
+\noindent\begin{minipage}{\textwidth}%
+\epsfxsize=0.35\maxfigwidth
+\noindent \epsffile{#1}\hfill
+\epsfxsize=0.35\maxfigwidth
+\epsffile{#2}\\
+\makebox[0.35\textwidth]{(c)}\hfill\makebox[0.35\textwidth]{(d)}%
+\end{minipage}}
+
+\def\twofigboxnolabel#1#2{%
+\begin{minipage}{\textwidth}%
+\epsfxsize=0.35\maxfigwidth
+\noindent \epsffile{#1}\hfill
+\epsfxsize=0.35\maxfigwidth
+\epsffile{#2}\\
+%\makebox[0.48\textwidth]{(a)}\hfill\makebox[0.48\textwidth]{(b)}%
+\end{minipage}
+}
+
+\def\threefigbox#1#2#3{%
+\noindent\begin{minipage}{\textwidth}%
+\epsfxsize=0.33\maxfigwidth
+\noindent \epsffile{#1}\hfill
+\epsfxsize=0.33\maxfigwidth
+\noindent \epsffile{#2}\hfill 
+\epsfxsize=0.33\maxfigwidth
+\epsffile{#3}\\
+\makebox[0.31\textwidth]{{\scriptsize (a)}}\hfill%
+\makebox[0.31\textwidth]{{\scriptsize (b)}}\hfill
+\makebox[0.31\textwidth]{{\scriptsize (c)}}%
+\smallskip
+\end{minipage}}
+
+\def\threefigboxnolabel#1#2#3{%
+\noindent\begin{minipage}{\textwidth}%
+\epsfxsize=0.33\maxfigwidth
+\noindent \epsffile{#1}\hfill
+\epsfxsize=0.33\maxfigwidth
+\noindent \epsffile{#2}\hfill 
+\epsfxsize=0.33\maxfigwidth
+\epsffile{#3}\\
+%\makebox[0.31\textwidth]{{\scriptsize (a)}}\hfill%
+%\makebox[0.31\textwidth]{{\scriptsize (b)}}\hfill
+%\makebox[0.31\textwidth]{{\scriptsize (c)}}%
+%\smallskip
+\end{minipage}}
+
+\newlength{\maxfigwidth}
+\setlength{\maxfigwidth}{\textwidth}
+%\def\captionsize {\footnotesize}
+\def\captionsize {}
+
+\newcommand{\xsi}{{x^{(i)}}}
+\newcommand{\ysi}{{y^{(i)}}}
+\newcommand{\xsj}{{x^{(j)}}}
+\newcommand{\ysj}{{y^{(j)}}}
+\newcommand{\zsi}{{z^{(i)}}}
+\newcommand{\wsi}{{w^{(i)}}}
+\newcommand{\esi}{{\epsilon^{(i)}}}
+\newcommand{\calN}{{\cal N}}
+\newcommand{\calX}{{\cal X}}
+\newcommand{\calY}{{\cal Y}}
+\newcommand{\ytil}{{\tilde{y}}}
+
+\newcommand{\beas}{\begin{eqnarray*}}
+\newcommand{\eeas}{\end{eqnarray*}}
+\newcommand{\hhat}{{\hat{h}}}
+\newcommand{\phat}{{\hat{p}}}
+\newcommand{\ehat}{{\hat{\varepsilon}}}
+\newcommand{\hstar}{{h^\ast}}
+
+\newcommand{\Ber}{{\rm Bernoulli}}
+\newcommand{\E}{{\rm E}}
+\newcommand{\VC}{{\rm VC}}
+\newcommand{\KL}{{\mathit KL}}
+\newcommand{\Bernoulli}{{\rm Bernoulli}}
+
+\newcommand{\Vstar}{{V^\ast}}
+\newcommand{\Rmax}{{R_{\rm max}}}
+\newcommand{\Bhat}{{\hat{B}}}

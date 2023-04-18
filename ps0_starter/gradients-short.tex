@@ -1,0 +1,61 @@
+% -*- Mode: latex -*- %
+
+\item \points{0} \textbf{Gradients and Hessians}
+
+  Recall that a matrix $A \in \R^{n \times n}$ is \emph{symmetric} if
+  $A^T = A$, that is, $A_{ij} = A_{ji}$ for all $i, j$. Also recall the
+  gradient $\nabla f(x)$ of a function $f : \R^n \to \R$,
+  which is the $n$-vector of partial derivatives
+  \begin{equation*}
+    \nabla f(x) = \left[\begin{matrix}
+        \frac{\partial}{\partial x_1} f(x) \\ \vdots \\
+        \frac{\partial}{\partial x_n} f(x) \end{matrix} \right]
+    ~~ \mbox{where} ~~
+    x = \left[\begin{matrix} x_1 \\ \vdots \\ x_n \end{matrix} \right].
+  \end{equation*}
+  The hessian $\nabla^2 f(x)$ of a function $f : \R^n \to \R$ is the
+  $n \times n$ symmetric matrix of twice partial derivatives,
+  \begin{equation*}
+    \nabla^2 f(x) = \left[\begin{matrix}
+        \frac{\partial^2}{\partial x_1^2} f(x)
+        & \frac{\partial^2}{\partial x_1 \partial x_2} f(x)
+        & \cdots & \frac{\partial^2}{\partial x_1 \partial x_n} f(x) \\
+        \frac{\partial^2}{\partial x_2 \partial x_1} f(x)
+        & \frac{\partial^2}{\partial x_2^2} f(x)
+        & \cdots & \frac{\partial^2}{\partial x_2 \partial x_n} f(x) \\
+        \vdots & \vdots & \ddots & \vdots \\
+        \frac{\partial^2}{\partial x_n \partial x_1} f(x)
+        & \frac{\partial^2}{\partial x_n \partial x_2} f(x)
+        & \cdots
+        & \frac{\partial^2}{\partial x_n^2} f(x)
+      \end{matrix}
+    \right].
+  \end{equation*}
+
+  \begin{enumerate}[(a)]
+  \item \label{item:quadratic-gradient}
+    Let $f(x) = \half x^T A x + b^T x$, where $A$ is a symmetric matrix and
+    $b \in \R^n$ is a vector. What is $\nabla f(x)$?
+
+    \answer{}{Your Answer Here}
+  \item \label{item:chain-rule}
+    Let $f(x) = g(h(x))$, where $g : \R \to \R$ is
+    differentiable and $h : \R^n \to \R$ is differentiable.
+    What is $\nabla f(x)$?
+
+    \answer{}{Your Answer Here
+    }
+
+  \item Let $f(x) = \half x^T A x + b^T x$, where
+    $A$ is symmetric and $b \in \R^n$ is a vector. What is
+    $\nabla^2 f(x)$?
+
+    \answer{}{Your Answer Here}
+  \item Let $f(x) = g(a^T x)$, where $g : \R \to \R$ is continuously
+    differentiable and $a \in \R^n$ is a vector.
+    What are $\nabla f(x)$ and $\nabla^2 f(x)$?
+    (\emph{Hint:} your expression for $\nabla^2 f(x)$ may have as few as
+    $11$ symbols, including $'$ and parentheses.)
+
+    \answer{}{Your Answer Here}
+  \end{enumerate}

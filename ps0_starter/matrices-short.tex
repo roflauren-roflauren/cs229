@@ -1,0 +1,98 @@
+% -*- Mode: latex -*-
+
+\item \points{0} \textbf{Positive definite matrices}
+
+  A matrix $A \in \R^{n \times n}$ is \emph{positive semi-definite}
+  (PSD), denoted $A \succeq 0$, if
+  $A = A^T$ and $x^T A x \ge 0$ for all $x \in \R^n$.
+  A matrix $A$ is \emph{positive definite}, denoted $A \succ 0$,
+  if $A = A^T$ and $x^T A x > 0$ for all $x \neq 0$, that is,
+  all non-zero vectors $x$. The simplest example of a positive
+  definite matrix is the identity  $I$ (the diagonal matrix with $1$s on
+  the diagonal and $0$s elsewhere), which satisfies
+  $x^T I x = \ltwo{x}^2 = \sum_{i = 1}^n x_i^2$.
+  \begin{enumerate}[(a)]
+  \item Let $z \in \R^n$ be an $n$-vector.
+    Show that $A = zz^T$ is positive semidefinite.
+    
+	\answer{}{Your Answer Here}
+
+  \item Let $z \in \R^n$ be a \emph{non-zero} $n$-vector.
+    Let $A = zz^T$. What is the null-space of $A$?
+    What is the rank of $A$?
+
+\answer{}{Your Answer Here}
+   
+
+  \item Let $A \in \R^{n \times n}$ be positive semidefinite and
+    $B \in \R^{m \times n}$ be arbitrary, where $m, n \in \mathbb{N}$. Is
+    $BAB^T$ PSD?  If so, prove it.  If not, give a counterexample with
+    explicit $A, B$.
+
+\answer{}{Your Answer Here}
+  \end{enumerate}
+
+\newpage
+
+  \item \points{0} \textbf{Eigenvectors, eigenvalues, and the spectral
+    theorem}
+
+  The eigenvalues of an $n \times n$ matrix $A \in \R^{n \times n}$ are the
+  roots of the characteristic polynomial $p_A(\lambda) = \det(\lambda I - A)$,
+  which may (in general) be complex.  They are also defined as the values
+  $\lambda \in \mathbb{C}$ for which there exists a vector
+  $x \in \mathbb{C}^n$ such that $Ax = \lambda x$. We call such a pair
+  $(x, \lambda)$ an \emph{eigenvector, eigenvalue} pair.
+  In this question, we use the notation
+  $\diag(\lambda_1, \ldots, \lambda_n)$ to denote the diagonal matrix with
+  diagonal entries $\lambda_1, \ldots, \lambda_n$, that is,
+    \begin{equation*}
+      \diag(\lambda_1, \ldots, \lambda_n)
+      = \left[\begin{matrix} \lambda_1 & 0 & 0 & \cdots & 0 \\
+          0 & \lambda_2 & 0 & \cdots & 0 \\
+          0 & 0 & \lambda_3 & \cdots & 0 \\
+          \vdots & \vdots & \vdots & \ddots  & \vdots \\
+          0 & 0 & 0 & \cdots & \lambda_n \end{matrix} \right].
+    \end{equation*}
+    
+  \begin{enumerate}[(a)]
+
+  \item
+    \label{item:diagonalizable-A}
+    Suppose that the matrix $A \in \R^{n \times n}$ is diagonalizable,
+    that is, $A = T \Lambda T^{-1}$ for an invertible matrix $T \in \R^{n
+      \times n}$, where $\Lambda = \diag(\lambda_1, \ldots, \lambda_n)$ is
+    diagonal. Use the notation $t^{(i)}$ for the columns
+    of $T$, so that $T = [t^{(1)} ~ \cdots ~ t^{(n)}]$, where $t^{(i)} \in \R^n$. Show
+    that $A t^{(i)} = \lambda_i t^{(i)}$, so that
+    the eigenvalues/eigenvector pairs of $A$ are $(t^{(i)}, \lambda_i)$.
+
+	\answer{}{Your Answer Here}
+  \end{enumerate}
+
+  A matrix $U \in \R^{n \times n}$ is orthogonal if $U^T U = I$.
+  The spectral theorem, perhaps one of the most important theorems in
+  linear algebra, states that if $A \in \R^{n \times n}$ is symetric,
+  that is, $A= A^T$,
+  then $A$ is \emph{diagonalizable by a real orthogonal matrix}. That is,
+  there are a diagonal matrix $\Lambda \in \R^{n \times n}$ and
+  orthogonal matrix $U \in \R^{n \times n}$ such that
+  $U^T A U = \Lambda$, or, equivalently,
+  \begin{equation*}
+    A = U \Lambda U^T.
+  \end{equation*}
+  Let $\lambda_i = \lambda_i(A)$ denote the $i$th eigenvalue of $A$.
+  \begin{enumerate}[(a)]
+    \setcounter{enumii}{1}
+  \item Let $A$ be symmetric. Show that if $U = [u^{(1)} ~ \cdots ~ u^{(n)}]$
+    is orthogonal,
+    where $u^{(i)} \in \R^n$ and $A = U \Lambda U^T$, then
+    $u^{(i)}$ is an eigenvector of $A$ and
+    $A u^{(i)} = \lambda_i u^{(i)}$, where
+    $\Lambda = \diag(\lambda_1, \ldots, \lambda_n)$.
+
+\answer{}{Your Answer Here}
+  \item Show that if $A$ is PSD, then $\lambda_i(A) \ge 0$ for each $i$.
+
+\answer{}{Your Answer Here}
+  \end{enumerate}
