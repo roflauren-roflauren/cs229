@@ -100,12 +100,12 @@ if __name__ == '__main__':
         eval_path='valid.csv',
         save_path='poisson_pred.txt')
     
-    # code to generate plot of predicted vs true counts: 
-    preds_file = open('poisson_pred.txt', 'r')
-    preds = preds_file.read().split('\n')
-    preds = [float(pred) for pred in preds if pred != ''] 
-    _, y_eval = util.load_dataset('valid.csv', add_intercept=True)
-    plt.scatter(y_eval, preds)
-    plt.xlabel("True Count")
-    plt.ylabel("Predicted Expected Count")
-    plt.show()
+    # # code to generate plot of predicted vs true counts: 
+    # preds_file = open('poisson_pred.txt', 'r')
+    # preds = preds_file.read().split('\n')
+    # preds = [float(pred) for pred in preds if pred != ''] 
+    # _, y_eval = util.load_dataset('valid.csv', add_intercept=True)
+    # plt.scatter(y_eval, preds)
+    # plt.xlabel("True Count")
+    # plt.ylabel("Predicted Expected Count")
+    # plt.show()
