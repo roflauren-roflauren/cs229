@@ -116,7 +116,7 @@ def run_exp(train_path, sine=False, ks=[1, 2, 3, 5, 10, 20], filename='plot.png'
         plt.plot(plot_x[:, 1], plot_y, label='k=%d' % k)
 
     plt.legend()
-    plt.savefig(filename)
+    plt.savefig(filename, bbox_inches='tight')
     plt.clf()
 
 
