@@ -75,7 +75,7 @@ class PoissonRegression:
                 if idx % 10 == 0:                
                     training_loss = 1 / y.shape[0] * np.sum(np.square(y - self.predict(x)))
                     print(f'Training loss for epoch {idx}: {training_loss}')            
-            # check for convergence:
+            # check for convergence (using l2 norm):
             if np.sqrt(np.sum(np.square(self.theta - theta_old))) < self.eps:
                 break 
         # *** END CODE HERE ***
