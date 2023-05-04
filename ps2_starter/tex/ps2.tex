@@ -1,0 +1,62 @@
+
+
+\def\qtr{Spring 2023}
+\def\due{Wednesday, May 10 at 11:59 pm}
+\def\latedue{Thursday, May 4 at 11:59 pm}
+\def\edstem{\url{https://edstem.org/us/courses/37893/discussion/}}
+\def\psetnum{2 }
+
+%%% Change the following flag to toggle between questions or solutions
+\ifdefined\solutions {} \else \def\solutions{0} \fi
+
+\input{macros.tex}
+\def\shownotes{1}  %set 1 to show author notes
+\ifnum\shownotes=1
+\newcommand{\authnote}[2]{$\ll$\textsf{\footnotesize #1 notes: #2}$\gg$}
+\else
+\newcommand{\authnote}[2]{}
+\fi
+
+
+\begin{document}
+
+\pagestyle{myheadings} \markboth{}{CS229 Problem Set \#\psetnum}
+
+\ifnum\solutions=1{
+{\huge\noindent CS 229, \qtr\\
+Problem Set \#\psetnum Solutions}\\\\
+YOUR NAME HERE (\texttt{YOUR SUNET HERE})
+} \else {\huge
+\noindent CS 229, \qtr\\
+Problem Set \#\psetnum
+} \fi
+
+\ruleskip
+
+{\bf Due {\due } on Gradescope.}
+
+\medskip
+
+\input{00-instructions/00-main}
+
+\begin{enumerate}[wide, labelwidth=!, labelindent=0pt]
+
+\clearpage
+\input{linearclass/00-main}
+
+\clearpage
+\input{stability/00-main}
+
+
+\clearpage
+\input{perceptron/00-main}
+
+\clearpage
+\input{mnist/00-main}
+
+\clearpage
+\input{doubledescent/00-main}
+
+\end{enumerate}
+
+\end{document}
