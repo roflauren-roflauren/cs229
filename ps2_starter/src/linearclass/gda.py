@@ -15,10 +15,17 @@ def main(train_path, valid_path, save_path):
 
     # *** START CODE HERE ***
     # Train a GDA classifier
+    gda = GDA()
+    gda.fit(x_train, y_train)
+    
     # Plot decision boundary on validation set
+    x_valid, y_valid = util.load_dataset(valid_path, add_intercept=True)
+    util.plot(x_valid, y_valid, gda.theta, save_path.replace('.txt', '.png'))
+    
     # Use np.savetxt to save outputs from validation set to save_path
+    preds = gda.predict(x_valid)
+    np.savetxt(save_path, preds)
     # *** END CODE HERE ***
-
 
 class GDA:
     """Gaussian Discriminant Analysis.
@@ -52,9 +59,25 @@ class GDA:
             x: Training example inputs. Shape (n_examples, dim).
             y: Training example labels. Shape (n_examples,).
         """
-        # *** START CODE HERE ***
+        # *** START CODE HERE ***   
         # Find phi, mu_0, mu_1, and sigma
-        # Write theta in terms of the parameters
+        phi   = np.count_nonzero(y == 1) / len(y)
+        mu_0  = np.expand_dims(
+            (np.sum(x[y == 0], axis=0) / np.count_nonzero(y == 0)), axis=-1
+        )
+        mu_1  = np.expand_dims(
+            (np.sum(x[y == 1], axis=0) / np.count_nonzero(y == 1)), axis=-1
+        )
+        sigma = np.sum([ 
+                    (np.expand_dims(x[idx], -1) - mu_0) @ (np.expand_dims(x[idx], -1) - mu_0).T if y[idx] == 0 else 
+                    (np.expand_dims(x[idx], -1) - mu_1) @ (np.expand_dims(x[idx], -1) - mu_1).T for idx in range(len(y))
+                ], axis=0) / len(y)
+    
+        # Write theta in terms of the parameters        
+        self.theta = np.linalg.inv(sigma) @ (mu_1 - mu_0)
+        theta_zero = (mu_0.T @ np.linalg.inv(sigma) @ mu_0) / 2  \
+            - (mu_1.T @ np.linalg.inv(sigma) @ mu_1) / 2 - np.log((1 - phi) / phi)
+        self.theta = np.concatenate((theta_zero, self.theta))
         # *** END CODE HERE ***
 
     def predict(self, x):
@@ -67,6 +90,9 @@ class GDA:
             Outputs of shape (n_examples,).
         """
         # *** START CODE HERE ***
+        y_hat = 1 / (1 + np.exp(-(x @ self.theta)))
+        preds = [1 if elem >= 0.5 else 0 for elem in y_hat]
+        return np.asarray(preds)
         # *** END CODE HERE
 
 if __name__ == '__main__':
