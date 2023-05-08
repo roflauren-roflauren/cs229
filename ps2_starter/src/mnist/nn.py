@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import argparse
 
+
 def softmax(x):
     """
     Compute softmax function for a batch of input values. 
@@ -21,6 +22,8 @@ def softmax(x):
         A 2d numpy float array containing the softmax results of shape batch_size x number_of_classes
     """
     # *** START CODE HERE ***
+    max_shifted_exp = np.exp(x - np.max(x, axis=1, keepdims=True))
+    return max_shifted_exp / np.sum(max_shifted_exp, axis=1, keepdims=True)
     # *** END CODE HERE ***
 
 def sigmoid(x):
@@ -34,6 +37,7 @@ def sigmoid(x):
         A numpy float array containing the sigmoid results
     """
     # *** START CODE HERE ***
+    return 1 / (1 + np.exp(-x))
     # *** END CODE HERE ***
 
 def get_initial_params(input_size, num_hidden, num_output):
@@ -63,6 +67,12 @@ def get_initial_params(input_size, num_hidden, num_output):
     """
 
     # *** START CODE HERE ***
+    params = {}
+    params['W1'] = np.random.normal(0, 1, size=(input_size, num_hidden))
+    params['b1'] = np.zeros(shape=(num_hidden, 1))
+    params['W2'] = np.random.normal(0, 1, size=(num_hidden, num_output))
+    params['b2'] = np.zeros(shape=(num_output, 1))
+    return params
     # *** END CODE HERE ***
 
 def forward_prop(data, one_hot_labels, params):
@@ -80,10 +90,15 @@ def forward_prop(data, one_hot_labels, params):
     Returns:
         A 3 element tuple containing:
             1. A numpy array of the activations (after the sigmoid) of the hidden layer
-            2. A numpy array The output (after the softmax) of the output layer
+            2. A numpy array of the outputs (after the softmax) of the output layer
             3. The average loss for these data elements
     """
     # *** START CODE HERE ***
+    activations = sigmoid(params['W1'].T @ data.T + params['b1'])                       # shape: num_hidden x num_examples. 
+    logits      = params['W2'].T @ activations + params['b2']                           # shape: num_outputs x num_examples.
+    outputs     = softmax(logits.T)                                                     # shape: num_examples x num_outputs. 
+    avg_loss    = - (1 / data.shape[0]) * np.sum((one_hot_labels.T @ np.log(outputs)))  # shape: scalar.
+    return (activations, outputs, avg_loss)
     # *** END CODE HERE ***
 
 def backward_prop(data, one_hot_labels, params, forward_prop_func):
@@ -107,8 +122,23 @@ def backward_prop(data, one_hot_labels, params, forward_prop_func):
             W1, W2, b1, and b2
     """
     # *** START CODE HERE ***
+    # initialize return dict. and retrieve forward pass outputs: 
+    grads = {}
+    activations, outputs, avg_loss = forward_prop_func(data, one_hot_labels, params)
+    # compute gradients for backprop: 
+    d_logits      = outputs - one_hot_labels                                                # shape: num_examples x num_outputs. 
+    grads['W2']   = (d_logits.T @ activations.T).T / data.shape[0]                          # shape: num_hidden x num_outputs. 
+    grads['b2']   = np.expand_dims(np.sum(d_logits.T, axis=1), axis=-1) / data.shape[0]     # shape: num_outputs x 1.
+    d_activations = params['W2'] @ d_logits.T                                               # shape: num_hidden x num_examples.
+    d_scores      = np.multiply(np.multiply(activations, (1 - activations)), d_activations) # shape: num_hidden x num_examples.
+    grads['b1']   = np.expand_dims(np.sum(d_scores, axis=1), axis=-1) / data.shape[0]       # shape: num_hidden x 1. 
+    grads['W1']   = (d_scores @ data).T / data.shape[0]                                     # shape: num_inputs x num_hidden.
+    # check gradient shapes:
+    for param in grads:
+        assert(grads[param].shape == params[param].shape)
+    # return gradients:
+    return grads
     # *** END CODE HERE ***
-
 
 def backward_prop_regularized(data, one_hot_labels, params, forward_prop_func, reg):
     """
@@ -132,6 +162,10 @@ def backward_prop_regularized(data, one_hot_labels, params, forward_prop_func, r
             W1, W2, b1, and b2
     """
     # *** START CODE HERE ***
+    grads = backward_prop(data, one_hot_labels, params, forward_prop_func)
+    grads['W1'] += 2 * reg * params['W1']
+    grads['W2'] += 2 * reg * params['W2']
+    return grads
     # *** END CODE HERE ***
 
 def gradient_descent_epoch(train_data, one_hot_train_labels, learning_rate, batch_size, params, forward_prop_func, backward_prop_func):
@@ -154,9 +188,23 @@ def gradient_descent_epoch(train_data, one_hot_train_labels, learning_rate, batc
     """
 
     # *** START CODE HERE ***
+    # helper function to retrieve next batch of data (which includes both x-attributes and y-labels) 
+    # while safeguarding against the issue where len(data)/batch_size != whole number should it rise. 
+    def get_batch(data, labels, batch_size):
+        for idx in range(0, len(data), batch_size): 
+            yield data[idx:min(idx + batch_size, len(data))], \
+                    labels[idx:min(idx + batch_size, len(data))]
+                    
+    # for each batch of data: 
+    for train_data_batch, label_batch in get_batch(train_data, one_hot_train_labels, batch_size): 
+        # compute gradients: 
+        grads = backward_prop_func(train_data_batch, label_batch, params, forward_prop_func)
+        # update parameters:
+        for param in params: 
+            params[param] -= learning_rate * grads[param]
     # *** END CODE HERE ***
 
-    # This function does not return anything
+    # This function does not return anything.
     return
 
 def nn_train(
@@ -173,6 +221,7 @@ def nn_train(
     accuracy_train = []
     accuracy_dev = []
     for epoch in range(num_epochs):
+        print(f'Processing epoch num. {epoch}')
         gradient_descent_epoch(train_data, train_labels, 
             learning_rate, batch_size, params, forward_prop_func, backward_prop_func)
 
@@ -182,7 +231,8 @@ def nn_train(
         h, output, cost = forward_prop_func(dev_data, dev_labels, params)
         cost_dev.append(cost)
         accuracy_dev.append(compute_accuracy(output, dev_labels))
-
+        print(f'train loss :: {cost_train[-1]:.3f}, train acc. :: {accuracy_train[-1]:.3f}, dev loss :: {cost_dev[-1]:.3f}, dev acc :: {accuracy_dev[-1]:.3f}')
+        
     return params, cost_train, cost_dev, accuracy_train, accuracy_dev
 
 def nn_test(data, labels, params):
@@ -212,6 +262,11 @@ def run_train_test(name, all_data, all_labels, backward_prop_func, num_epochs, p
         get_initial_params, forward_prop, backward_prop_func,
         num_hidden=300, learning_rate=5, num_epochs=num_epochs, batch_size=1000
     )
+    
+    # save learned parameters:
+    import pickle
+    with open(name + '.params', 'wb') as f: 
+        pickle.dump(params, f)
 
     t = np.arange(num_epochs)
 
@@ -234,7 +289,7 @@ def run_train_test(name, all_data, all_labels, backward_prop_func, num_epochs, p
         ax2.set_ylabel('accuracy')
         ax2.legend()
 
-        fig.savefig('./' + name + '.pdf')
+        fig.savefig('./' + name + '.png')
 
     accuracy = nn_test(all_data['test'], all_labels['test'], params)
     print('For model %s, got accuracy: %f' % (name, accuracy))
