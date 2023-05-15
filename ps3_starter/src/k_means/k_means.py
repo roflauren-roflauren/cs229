@@ -26,12 +26,16 @@ def init_centroids(num_clusters, image):
     """
 
     # *** START YOUR CODE ***
-    # raise NotImplementedError('init_centroids function not implemented')
+    rnd_pixels = []
+    for _ in range(num_clusters): 
+        x, y = random.randint(0, image.shape[0] - 1), random.randint(0, image.shape[1] - 1)
+        rnd_pixels.append(image[x][y])            
+    centroids_init = np.stack(rnd_pixels, axis=0)
     # *** END YOUR CODE ***
-
+    
     return centroids_init
 
-
+    
 def update_centroids(centroids, image, max_iter=30, print_every=10):
     """
     Carry out k-means centroid update step `max_iter` times
@@ -54,12 +58,37 @@ def update_centroids(centroids, image, max_iter=30, print_every=10):
     """
 
     # *** START YOUR CODE ***
-    # raise NotImplementedError('update_centroids function not implemented')
-        # Usually expected to converge long before `max_iter` iterations
-                # Initialize `dist` vector to keep track of distance to every centroid
-                # Loop over all centroids and store distances in `dist`
-                # Find closest centroid and update `new_centroids`
-        # Update `new_centroids`
+    for itr in range(max_iter): 
+        # report progress: 
+        if itr % print_every == 0: 
+            print(f'Working on iteration {itr} out of {max_iter}.')
+        
+        # store existing centroids: 
+        old_centroids = centroids if itr == 0 else new_centroids
+        # initialize array of new cluster assignments: 
+        assignments = np.empty(shape=(image.shape[0], image.shape[1]))
+            
+        # for all pixels in image:
+        for i in range(image.shape[0]):
+            for j in range(image.shape[1]):
+                # extract pixel: 
+                pixel = image[i][j]        
+                # populate `dist` vector to keep track of distance to every centroid:
+                dist = [np.linalg.norm(pixel - centroid) ** 2 for centroid in old_centroids]
+                # find closest centroid and update pixel cluster assignment:
+                min_idx = np.array(dist).argmin()
+                assignments[i][j] = min_idx
+        
+        # compute `new_centroids`: 
+        new_centroids_list = []
+        for cluster_num in range(len(centroids)): 
+            # extract members of new cluster: 
+            members = image[assignments == cluster_num]
+            # make sure cluster is non-empty:
+            if len(members) > 0:
+                # compute new centroid: 
+                new_centroids_list.append(np.mean(members, axis=0))
+        new_centroids = np.stack(new_centroids_list, axis=0)
     # *** END YOUR CODE ***
 
     return new_centroids
@@ -84,17 +113,21 @@ def update_image(image, centroids):
     """
 
     # *** START YOUR CODE ***
-    # raise NotImplementedError('update_image function not implemented')
-            # Initialize `dist` vector to keep track of distance to every centroid
-            # Loop over all centroids and store distances in `dist`
-            # Find closest centroid and update pixel value in `image`
+    for i in range(image.shape[0]):
+        for j in range(image.shape[1]):
+            # extract pixel: 
+            pixel = image[i][j]        
+            # populate `dist` vector to keep track of distance to every centroid:
+            dist = [np.linalg.norm(pixel - centroid) ** 2 for centroid in centroids]
+            # find closest centroid and update pixel value in `image`:
+            min_idx = np.array(dist).argmin()
+            image[i][j] = centroids[min_idx]         
     # *** END YOUR CODE ***
 
     return image
 
 
 def main(args):
-
     # Setup
     max_iter = args.max_iter
     print_every = args.print_every
