@@ -72,7 +72,7 @@ def plot_points(x, y, save_path):
     plt.scatter(x, y)
     plt.xlabel('norm')
     plt.ylabel('validation error')
-    plt.savefig(save_path)
+    plt.savefig(save_path, bbox_inches='tight')
 
 def plot_training_and_validation_curves(logs, save_path, label):
     """Plot multiple training/validation curves

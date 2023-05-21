@@ -35,6 +35,9 @@ class QP:
             # *** START CODE HERE ***
             # Compute the gradient of self.theta, self.phi using data X, Y
             # and update self.theta, self.phi
+            grad_theta, grad_phi = self.gradient(X, Y)
+            self.theta -= eta * grad_theta
+            self.phi   -= eta * grad_phi        
             # *** END CODE HERE ***
             if verbose:
                 log_steps.append(t)
@@ -74,6 +77,9 @@ class QP:
             # *** START CODE HERE ***
             # Compute the gradient of self.theta, self.phi using data X_batch, Y_batch
             # and update self.theta, self.phi
+            grad_theta, grad_phi = self.gradient(X_batch, Y_batch)
+            self.theta -= eta * grad_theta
+            self.phi   -= eta * grad_phi
             # *** END CODE HERE ***
             if verbose:
                 log_steps.append(t)
@@ -89,7 +95,10 @@ class QP:
         """Return the gradient w.r.t. theta and phi
         """
         # *** START CODE HERE ***
-        # *** END CODE HERE ***
+        grad_theta = np.mean((X @ (self.theta*self.theta - self.phi*self.phi) - Y)[:, None] * (self.theta*X), axis=0)
+        grad_phi   = -1 * np.mean((X @ (self.theta*self.theta - self.phi*self.phi) - Y)[:, None] * (self.phi*X), axis=0)
+        return grad_theta, grad_phi        
+        # *** END CODE HERE *** 
     
     def validation(self, X, Y):
         return np.average(0.25 * (self.predict(X) - Y) ** 2)
