@@ -1,0 +1,55 @@
+favorite only:
+    profitable_bet_rate :: 0.68 (681 / 1000)
+    overall_profit :: 43030.00
+    largest_amt_won :: 170.00
+    smallest_amt_won :: 100.00
+    avg_amt_won :: 110.03
+    avg_amt_loss :: 100.00
+    underdog_bet_hr :: no underdog bets made.
+    avg_underdog_hit_winnings :: no winning underdog bets made.
+    clearwinner_bet_hr :: 0.77
+    avg_clearwinner_hit_winnings :: 100.00
+    closelycontested_bet_hr :: 0.60
+    avg_closelycontested_hit_winnings :: 119.85
+
+random choice:
+    profitable_bet_rate :: 0.55 (69 / 125)
+    overall_profit :: -7980.00
+    largest_amt_won :: 750.00
+    smallest_amt_won :: 100.00
+    avg_amt_won :: 166.96
+    avg_amt_loss :: 348.21
+    underdog_bet_hr :: 0.44
+    avg_underdog_hit_winnings :: 257.41
+    clearwinner_bet_hr :: 0.57
+    avg_clearwinner_hit_winnings :: 177.50
+    closelycontested_bet_hr :: 0.57
+    avg_closelycontested_hit_winnings :: 156.25
+
+logreg:
+    profitable_bet_rate :: 0.65 (654 / 1000)
+    overall_profit :: 17652.90
+    largest_amt_won :: 108.24
+    smallest_amt_won :: 0.03
+    avg_amt_won :: 40.44
+    avg_amt_loss :: 25.41
+    underdog_bet_hr :: 0.36
+    avg_underdog_hit_winnings :: 14.44
+    clearwinner_bet_hr :: 0.76
+    avg_clearwinner_hit_winnings :: 59.57
+    closelycontested_bet_hr :: 0.56
+    avg_closelycontested_hit_winnings :: 17.81
+
+dqnn:
+    profitable_bet_rate :: 0.59 (586 / 1000)
+    overall_profit :: 24592.08
+    largest_amt_won :: 660.70
+    smallest_amt_won :: 95.16
+    avg_amt_won :: 126.91
+    avg_amt_loss :: 120.24
+    underdog_bet_hr :: 0.34
+    avg_underdog_hit_winnings :: 230.27
+    clearwinner_bet_hr :: 0.68
+    avg_clearwinner_hit_winnings :: 119.55
+    closelycontested_bet_hr :: 0.51
+    avg_closelycontested_hit_winnings :: 134.42
