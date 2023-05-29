@@ -53,3 +53,10 @@ dqnn:
     avg_clearwinner_hit_winnings :: 119.55
     closelycontested_bet_hr :: 0.51
     avg_closelycontested_hit_winnings :: 134.42
+
+    eta              = 1e-3     # optimizer learning rate.
+    discount_factor  = 0.95     # discount factor for rl update.
+    e                = 0.3      # init. epsilon val.
+    max_train_eps    = 1000     # max. number of training episodes. 
+    num_exps_to_copy = 20000    # num. exps. per train/target network sync.
+    

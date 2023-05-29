@@ -1,0 +1,43 @@
+\item \points{35} {\bf Reinforcement Learning: Policy Gradient}
+
+Before working on this problem, please run \texttt{pip install gym==0.17.3} to install the OpenAI Gym Python dependency.
+
+In this problem you will investigate reinforcement learning, in particular policy gradient methods, as an approach to solving control tasks without explicit knowledge of the dynamics of the underlying system.
+
+The problem we will consider is the inverted pendulum problem, also referred to as the pole-balancing problem, provided in the form of the {\tt CartPole-v0} OpenAI Gym environment.\footnote{{\tt https://gym.openai.com/envs/CartPole-v0/}} 
+The physics setup and details of the MDP are described below, although you do not necessarily have to understand all the details to solve the problem. 
+As shown in the figure below, a thin pole is connected via a free hinge to a cart, which can move laterally on a smooth table surface. 
+Our objective is to develop a controller/policy to balance the pole with these  constraints by appropriately having the cart accelerate either left or right. The controller/policy is considered as failed if either the angle of the pole deviates by more than a certain amount from the vertical position (i.e., if the pole falls over), or if the cart's position goes out of bounds (i.e., if it falls off the end of the table by going too far left or right). 
+
+\begin{center}
+  \includegraphics[width=8cm]{policy_gradient/env.png}
+\end{center}
+
+We have included a simple simulator for this problem. The simulation proceeds in discrete time cycles (steps). The state of the cart and pole at any time is completely characterized by 4 scalar values: the cart position, the cart velocity, the angle of the pole measured as its deviation from the vertical position, and the angular velocity of the pole. The concatenation of these 4 scalar values is the state $s$. 
+
+\newcommand{\tilT}{\tilde{T}}
+At every time step, the controller must choose one of two actions: push (accelerate) the cart left, or push the cart right. (To keep the problem simple, there is no {\it do-nothing} action.) \textbf{These are represented as actions $0$ and $1$ respectively in the code.}  When the action choice is made, the simulator updates the state according to the underlying dynamics, and provides a new state. 
+If the angle of the pole deviates by more than a certain amount from the vertical position, or if the cart's position goes out of bounds, we conceptually consider that the MDP enters a special ``done'' state, and once the MDP enters the ``done'' state, no actions can recover it to any normal state. 
+We choose the horizon $T$ to be 200, meaning, we only take at most 200 actions in each trajectory. Note because once the system enters the ``done'' state, it stays there forever, we do not have to simulate the MDP and sample more states anymore after the first time we enter the done state (and all future done states can be ignored because no actions can influence anything). Therefore, in the code, you will only interact with the simulation until the system hits the done state (or reaches a trajectory length of 200), so the effective length of the trajectory can be less than 200. We use $\tilT$ to denote the number of steps with which a trajectory reaches a ``done'' state or 200 otherwise. The discount factor will be set to $\gamma=1$ throughout the question. 
+
+
+Our goal is to make the pole and cart stay in bounds without entering the done state for as many steps as possible. To do this, we design the following reward function.  For any normal state $s\in \R^4$, we have $R(s)=1$ (and $R$ does not depend on the action $a$). When the system is at the ``done" state (that is, the pole angle goes beyond a certain limit or when the cart goes too far out), the reward is 0. The reward is given to you in the code as part of the MDP. 
+
+The files for this problem are contained within the \texttt{src/policy\_gradient/} directory. Most of the scaffolding code has already been written for you, and you need to make changes only to {\tt policy\_gradient.py} in the places specified. There are also several details that are also clearly outlined inside of the code. This file can then be run to display the behavior of the agent in real time, and to plot a learning curve of the agent at the end.
+
+\begin{enumerate}
+\input{policy_gradient/01.tex}
+\ifnum\solutions=1 {
+  \input{policy_gradient/01-sol.tex}
+} \fi
+
+\input{policy_gradient/02.tex}
+\ifnum\solutions=1 {
+  \input{policy_gradient/02-sol.tex}
+} \fi
+
+\input{policy_gradient/03.tex}
+\ifnum\solutions=1 {
+  \input{policy_gradient/03-sol.tex}
+} \fi
+\end{enumerate}

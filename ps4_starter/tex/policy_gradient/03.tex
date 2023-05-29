@@ -1,0 +1,12 @@
+\item \subquestionpoints{7} 
+\textbf{Reward-To-Go}
+
+An approach to reducing the variance of the policy gradient is to exploit the fact that our policy cannot impact rewards in the past. This yields the following modified gradient estimator, referred to as the \textit{reward-to-go}, where we multiply $\nabla_\theta \ln \pi(a_t | s_t)$ at each individual time step $t$ by the the sum of future rewards from that time step onward (instead of for all time steps as we did before). The gradient of the objective is given by the following expression:
+
+\begin{align*}
+    \nabla_\theta \eta(\theta) = \sum_{t=0}^{\tilT-1} \E_{\tau \sim P_\theta} \left[ \nabla_\theta \ln \pi(a_t | s_t) \cdot \left( \sum_{j \geq t}^{\tilT - 1} R(s_j, a_j) \right) \right]
+\end{align*}
+
+
+Follow the instructions in \texttt{src/policy\_gradient/policy\_gradient.py} to \textbf{implement the function \texttt{compute\_weights\_reward\_to\_go(episode\_rewards)}}. Once you're done, run the new experiment via {\tt python policy\_gradient.py --weighting reward\_to\_go }. \textbf{Include the generated plot {\tt reward\_to\_go.png } in your write-up}. Now, \textbf{briefly compare the two plots qualitatively} - how does this plot compare to the previous one? Does one estimator of the gradient seem preferable over the other, and what qualities make you say this?
+

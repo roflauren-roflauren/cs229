@@ -1,0 +1,27 @@
+\item \subquestionpoints{6} 
+\textbf{Policy Gradient}
+
+In this part, we will fully detail the characterization of our policy gradient method and derive the update rule to train our model to solve the {\tt CartPole-v0} environment.
+
+In this problem we will be learning a \textit{logistic} policy. This means that our policy will be a sigmoid function of a linear function in the state. 
+Recall that the sigmoid function $\sigma(z) = 1 / (1 + e^{-z})$. Let $\theta \in \R^4$ be the parameters of the policy. 
+The probability of taking action 0 (left) is parameterized by 
+\begin{align*}
+    \pi_\theta(0 | s) &= \sigma(\theta^\top s) 
+\end{align*}
+Given that our environment only contains two actions, the probability of taking action 1 (right) is simply one minus the probability of taking action 0 (left). To be concrete:
+\begin{align*}
+\pi_\theta(1 | s) &= 1 - \pi_\theta(0 | s) = \sigma(-\theta^\top s)
+\end{align*}
+
+Now recall the gradient of our objective $\eta(\theta)$ in the context of vanilla policy gradient, which is given by the following expression. This value acts as an estimator for the gradient of the expected cumulative reward with respect to the policy parameters.
+
+\begin{align*}
+    \nabla_\theta \eta(\theta) = \sum_{t=0}^{\tilT - 1} \E_{\tau \sim P_\theta} \left[ \nabla_\theta \ln \pi_\theta(a_t | s_t) \cdot \left( \sum_{j = 0}^{\tilT - 1}R(s_j, a_j) \right) \right]
+\end{align*}
+
+Note that this is slightly different from the formula given in the lecture notes because a) the discount factor $\gamma=1$ in this question, and b) we dropped everything after time step $\tilT$ because once the trajectory enters the done state, all the rewards become zero and the parameter $\theta$ doesn't influence $\eta(\theta)$ anymore. 
+
+Before we are able to implement our algorithm, we will need to first derive the expression for $\nabla_\theta \ln \pi_\theta(a | s)$. 
+\textbf{Derive this value for each action, namely $\nabla_\theta \ln \pi_\theta(0 | s)$ and $\nabla_\theta \ln \pi_\theta(1 | s)$.} Both of your answers should be as simplified as possible and in terms of $\theta$, $s$, and the sigmoid function $\sigma(\cdot)$.
+

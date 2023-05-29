@@ -1,0 +1,15 @@
+\item \subquestionpoints{22} 
+\textbf{Implementation}
+
+Now that we've derived the gradient which will be used to update our model parameters, follow the instructions in {\tt src/policy\_gradient/policy\_gradient.py} to implement the algorithm. \textbf{In particular, implement the following functions:}
+
+\begin{enumerate}
+    \item \texttt{sigmoid(x)}
+    \item \texttt{policy(state)}
+    \item \texttt{sample\_action(state)}
+    \item \texttt{grad\_log\_prob(state)}
+    \item \texttt{compute\_weights\_full\_trajectory(episode\_rewards)}
+    \item \texttt{update(episode\_rewards, states, actions)}
+\end{enumerate}
+
+Once you've finished implementing the above functions, run the experiment via {\tt python policy\_gradient.py}. Include the generated plot \texttt{full\_trajectory.png} in your write-up.
