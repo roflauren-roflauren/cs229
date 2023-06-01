@@ -1,2 +1,0 @@
-notes: 
-    - run with 'cs238_fp_cuda' venv.
